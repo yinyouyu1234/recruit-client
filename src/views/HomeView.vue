@@ -3,6 +3,7 @@
     <span>{{ $t('login.password') }}</span>
     <div class="top_btn" @click="changeLangEvent">中文</div>
     kk
+    <img v-img="img" src="" alt="">
     <div style="width: 800px">
     <div class="swiper mySwiper">
       <div class="swiper-wrapper">
@@ -26,14 +27,25 @@
 import { defineComponent } from 'vue';
 import Swiper from 'swiper'
 // import { Swiper, SwiperSlide } from 'swiper/vue';
-  import 'swiper/css';
+import 'swiper/css';
 export default defineComponent({
   name: 'HomeView',
+  data() {
+    return {
+      img: {
+        tc: require('@/assets/logo.png'),
+        en: require('@/assets/logo.png'),
+        vi: require('@/assets/logo.png'),
+        zh: require('@/assets/logo.png')
+      }
+    }
+  },
     //   components: {
     //   Swiper,
     //   SwiperSlide,
     // },
     mounted() {
+      console.log(this.$store);
             var swiper = new Swiper(".mySwiper", {
         pagination: {
           el: ".swiper-pagination",
@@ -42,22 +54,28 @@ export default defineComponent({
     },
   methods: {
     onSlideChange() {
-console.log('slide change');
+      console.log('slide change');
     },
     onSwiper(swiper: any) {
       console.log(swiper);
     },
     changeLangEvent() {
-      if (this.$i18n.locale === 'zh') {
-        this.$i18n.locale = 'en';//关键语句
-        console.log('en')
-      } else {
-        this.$i18n.locale = 'zh';//关键语句
-        console.log('zh')
-      }
+      
+    this.$store.commit('SET_GLOBAL_LANG', 'zh')
+      // if (this.$i18n.locale === 'zh') {
+      //   this.$i18n.locale = 'en';//关键语句
+      //   console.log('en')
+      // } else {
+      //   this.$i18n.locale = 'zh';//关键语句
+      //   console.log('zh')
+      // }
     }
   }
 });
 </script>
 <style>
+img {
+  width: 200px;
+  height: 200px;
+}
 </style>
